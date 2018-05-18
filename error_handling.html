@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Error Handling</title>
+</head>
+
+<body>
+	<input type="text" id="inputField">Input a number between(5 and 10 inclusive)</input> <br/>
+	<button id="testBtn">Test the number</button>
+	<h4 id="resultPara"> </h4>
+	<script type="text/javascript">
+		const testButton = document.getElementById('testBtn');
+		const inputField = document.getElementById('inputField')
+		const resultPara = document.getElementById('resultPara');
+		function testInput(e) {
+			const currentValue = inputField.value;
+			try {
+				if (currentValue === '') 
+					throw new Error("An empty string!");
+				if (isNaN(currentValue))
+					throw new Error("Cannot parse the string");
+				const parsedNumber = parseInt(currentValue);
+				if (parsedNumber < 5)
+					throw new Error("Too low!");
+				if (parsedNumber > 10)
+					throw new Error("Too high!");
+				resultPara.textContent = `Parsed number: ${parsedNumber}`;
+			} catch (e) {
+				console.error(e.stack);
+				resultPara.textContent = `Error: ${e.message}`;
+			}
+		}
+		testButton.addEventListener('click', testInput);
+	</script>
+</body>
+</html>
